@@ -9,14 +9,22 @@ public class BibliotecaTest {
 
 	
 	@Test
-	public void queCreoUnaBibliotecaConUnLibroConTituloYAutor() {
+	public void queCreoUnaBibliotecaConUnLibroConTituloNombreAutorCaracteresYFechaDePublicacion() {
 		Biblioteca biblioteca = dadoQueTengoUnaBibliotecaConNombre("Biblioteca Popular Jose Ingenieros");
-		Libro libro = dadoQueTengoUnLibroConNombreYAutor("La globalizacion","Bauman");
+		Libro libro = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Lives", "Bauman", 1600,2003);
+		Libro libro1 = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Livess", "Bauman", 1603,2003);
+		Libro libro2 = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Lives", "Baumann", 1601,2003);
 		cuandoLeAgregoUnLibro(biblioteca, libro);
-		entoncesTengoLaBibliotecaConUnLibro(biblioteca);
-		
+		cuandoLeAgregoUnLibro(biblioteca, libro1);
+		cuandoLeAgregoUnLibro(biblioteca, libro2);
+		entoncesTengoLaBibliotecaConUnLibro(biblioteca, libro);
+		for(Libro s: biblioteca.getAlmacenamientoDeLibros()) {
+			System.out.println(s.getCaracteres());
+		}
 	}
 	
+	
+
 	@Test
 	public void queCreoUnaBibliotecaConCincoLibrosYLosOrdenoPorApellidoDelAutor() {
 		PorApellidoDelAutorComparator comparador = new PorApellidoDelAutorComparator();
@@ -27,10 +35,10 @@ public class BibliotecaTest {
 		String primeroObtenido = biblioteca.getAlmacenamientoDeLibros().first().getAutor();
 		String ultimoEsperado = "Walsh";
 		String ultimoObtenido = biblioteca.getAlmacenamientoDeLibros().last().getAutor();
-		
+		/*
 		for(Libro s: biblioteca.getAlmacenamientoDeLibros()) {
 			System.out.println(s.getAutor());
-		}
+		}*/
 		
 		Assert.assertEquals(primeroEsperado,primeroObtenido);
 		Assert.assertEquals(ultimoEsperado,ultimoObtenido);
@@ -48,10 +56,10 @@ public class BibliotecaTest {
 		Integer primeroObtenido = biblioteca.getAlmacenamientoDeLibros().first().getFechaDePublicacion();
 		Integer ultimoEsperado = 2003;
 		Integer ultimoObtenido = biblioteca.getAlmacenamientoDeLibros().last().getFechaDePublicacion();
-		
+		/*
 		for(Libro s: biblioteca.getAlmacenamientoDeLibros()) {
 			System.out.println(s.getFechaDePublicacion());
-		}
+		}*/
 		
 		Assert.assertEquals(primeroEsperado,primeroObtenido);
 		Assert.assertEquals(ultimoEsperado,ultimoObtenido);
@@ -68,10 +76,10 @@ public class BibliotecaTest {
 		Integer ultimoEsperado = 3100;
 		Integer ultimoObtenido = biblioteca.getAlmacenamientoDeLibros().last().getCaracteres();
 		
+		/*
 		for(Libro s: biblioteca.getAlmacenamientoDeLibros()) {
 			System.out.println(s.getCaracteres());
-		}
-		
+		}*/
 		Assert.assertEquals(primeroEsperado,primeroObtenido);
 		Assert.assertEquals(ultimoEsperado,ultimoObtenido);
 	}
@@ -103,8 +111,8 @@ public class BibliotecaTest {
 		
 	}
 
-	private void entoncesTengoLaBibliotecaConUnLibro(Biblioteca biblioteca) {
-		Assert.assertTrue(biblioteca.getAlmacenamientoDeLibros().contains(new Libro("La globalizacion","Bauman")));
+	private void entoncesTengoLaBibliotecaConUnLibro(Biblioteca biblioteca, Libro libro) {
+		Assert.assertEquals(libro, new Libro("Wasted Lives", "Bauman", 1900,2013));
 		
 	}
 
@@ -112,10 +120,11 @@ public class BibliotecaTest {
 		biblioteca.agregarLibro(libro);
 		
 	}
-
-	private Libro dadoQueTengoUnLibroConNombreYAutor(String nombre, String autor) {
-		return new Libro(nombre, autor);
-		
+	
+	private Libro dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion(String nombre, String autor, Integer caracteres,
+			Integer fechaDePubliacion) {
+		// TODO Auto-generated method stub
+		return new Libro(nombre,autor,caracteres,fechaDePubliacion);
 	}
 
 	private Biblioteca dadoQueTengoUnaBibliotecaConNombre(String nombre) {

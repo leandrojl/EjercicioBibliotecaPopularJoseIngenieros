@@ -11,6 +11,7 @@ public class Libro implements Comparable<Libro>{
 	private String autor;
 	private Integer caracteres;
 	private Integer fechaDePublicacion;
+	private String generoLiterario;
 
 	public Libro(String nombre, String autor) {
 		this.nombre=nombre;
@@ -48,9 +49,18 @@ public class Libro implements Comparable<Libro>{
 	public Integer getFechaDePublicacion() {
 		return fechaDePublicacion;
 	}
+	
+	public String getGeneroLiterario() {
+		return generoLiterario;
+	}
+	public void setGeneroLiterario(String generoLiterario) {
+		this.generoLiterario = generoLiterario;
+	}
 	public void setFechaDePublicacion(Integer fechaDePublicacion) {
 		this.fechaDePublicacion = fechaDePublicacion;
 	}
+	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(autor, nombre);
@@ -67,10 +77,11 @@ public class Libro implements Comparable<Libro>{
 		return Objects.equals(autor, other.autor) && Objects.equals(nombre, other.nombre);
 	}
 	@Override
-	public int compareTo(Libro libro) {
-		
-		return this.nombre.compareTo(libro.getNombre()) + this.autor.compareTo(libro.getAutor());
+	public int compareTo(Libro o) {
+		// TODO Auto-generated method stub
+		return this.caracteres  - o.caracteres;
 	}
+	
 		
 
 }
