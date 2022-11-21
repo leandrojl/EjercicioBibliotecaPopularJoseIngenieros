@@ -1,6 +1,8 @@
-package ar.unlam.ejercicioProgramacionAvanzada2BibliotecaPopularJoseIngenieros;
+package ar.unlam.Comparadores;
 
 import java.util.Comparator;
+
+import ar.unlam.contenedorDeClasesPrincipales.Libro;
 
 public class PorApellidoDelAutorComparator implements Comparator<Libro>{
 

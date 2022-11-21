@@ -1,4 +1,4 @@
-package ar.unlam.ejercicioProgramacionAvanzada2BibliotecaPopularJoseIngenieros;
+package ar.unlam.contenedorDeClasesPrincipales;
 
 import java.util.Comparator;
 import java.util.Objects;

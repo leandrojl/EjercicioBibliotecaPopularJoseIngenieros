@@ -1,7 +1,11 @@
-package ar.unlam.ejercicioProgramacionAvanzada2BibliotecaPopularJoseIngenieros;
+package ar.unlam.contenedorDeClasesPrincipales;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
+
+import ar.unlam.Comparadores.PorApellidoDelAutorComparator;
+import ar.unlam.Comparadores.PorCantidadDeCaracteresComparator;
+import ar.unlam.Comparadores.PorFechaDePublicacionComparator;
 
 public class Biblioteca{
 

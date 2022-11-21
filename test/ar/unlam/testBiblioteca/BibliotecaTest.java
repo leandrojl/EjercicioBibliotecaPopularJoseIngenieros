@@ -1,30 +1,41 @@
-package ar.unlam.ejercicioProgramacionAvanzada2BibliotecaPopularJoseIngenieros;
+package ar.unlam.testBiblioteca;
 
 import org.junit.Test;
 
-
+import ar.unlam.Comparadores.PorApellidoDelAutorComparator;
+import ar.unlam.Comparadores.PorCantidadDeCaracteresComparator;
+import ar.unlam.Comparadores.PorFechaDePublicacionComparator;
+import ar.unlam.contenedorDeClasesPrincipales.Biblioteca;
+import ar.unlam.contenedorDeClasesPrincipales.Libro;
 import junit.framework.Assert;
 
 public class BibliotecaTest {
 
 	
-	@Test
-	public void queCreoUnaBibliotecaConUnLibroConTituloNombreAutorCaracteresYFechaDePublicacion() {
+	@Test(expected = NullPointerException.class)//EL EXPECTED ESTA ESPERANDO QUE SE PRODUZCA LA EXCEPCION
+												// SI SE PRODUCE, EL TEST DA VERDE. SI NO SE PRODUCE LA EXCEPCION, DA ROJO.
+	public void queCreoUnaBibliotecaConUnLibroConTituloNombreAutorCaracteresYFechaDePublicacion() throws NullPointerException {
+		try { //TRY Y CATCH ES DONDE SE TIENE QUE DAR EL MANEJO DE LA EXCEPCIONES YA QUE ES EL NIVEL MAS ALTO
+			 // MANEJO DE ARCHIVOS -> CLASE PRUEBA/MAIN(MISMO NIVEL) -> INTERFAZ DE USUARIO
 		Biblioteca biblioteca = dadoQueTengoUnaBibliotecaConNombre("Biblioteca Popular Jose Ingenieros");
 		Libro libro = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Lives", "Bauman", 1600,2003);
 		Libro libro1 = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Livess", "Bauman", 1603,2003);
 		Libro libro2 = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Lives", "Baumann", 1601,2003);
+		Libro libro3 = null;
 		cuandoLeAgregoUnLibro(biblioteca, libro);
 		cuandoLeAgregoUnLibro(biblioteca, libro1);
 		cuandoLeAgregoUnLibro(biblioteca, libro2);
+		cuandoLeAgregoUnLibro(biblioteca, libro3); //MANEJO LA EXCEPCION DE NULLPOINTEREXCEPTION
 		entoncesTengoLaBibliotecaConUnLibro(biblioteca, libro);
 		for(Libro s: biblioteca.getAlmacenamientoDeLibros()) {
-			System.out.println(s.getCaracteres());
+			System.out.println(s.getCaracteres());}
+		}catch(NullPointerException e) {
+			System.err.println("NullPointerException found");
+			e.printStackTrace();
 		}
-	}
+		
+		}
 	
-	
-
 	@Test
 	public void queCreoUnaBibliotecaConCincoLibrosYLosOrdenoPorApellidoDelAutor() {
 		PorApellidoDelAutorComparator comparador = new PorApellidoDelAutorComparator();
