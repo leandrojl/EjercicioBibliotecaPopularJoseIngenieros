@@ -7,6 +7,7 @@ import ar.unlam.Comparadores.PorCantidadDeCaracteresComparator;
 import ar.unlam.Comparadores.PorFechaDePublicacionComparator;
 import ar.unlam.contenedorDeClasesPrincipales.Biblioteca;
 import ar.unlam.contenedorDeClasesPrincipales.Libro;
+import ar.unlam.manejoDeExcepciones.LibroNoEncontradoException;
 import junit.framework.Assert;
 
 public class BibliotecaTest {
@@ -15,8 +16,8 @@ public class BibliotecaTest {
 	@Test(expected = NullPointerException.class)//EL EXPECTED ESTA ESPERANDO QUE SE PRODUZCA LA EXCEPCION
 												// SI SE PRODUCE, EL TEST DA VERDE. SI NO SE PRODUCE LA EXCEPCION, DA ROJO.
 	public void queCreoUnaBibliotecaConUnLibroConTituloNombreAutorCaracteresYFechaDePublicacion() throws NullPointerException {
-		try { //TRY Y CATCH ES DONDE SE TIENE QUE DAR EL MANEJO DE LA EXCEPCIONES YA QUE ES EL NIVEL MAS ALTO
-			 // MANEJO DE ARCHIVOS -> CLASE PRUEBA/MAIN(MISMO NIVEL) -> INTERFAZ DE USUARIO
+		//TRY Y CATCH ES DONDE SE TIENE QUE DAR EL MANEJO DE LA EXCEPCIONES YA QUE ES EL NIVEL MAS ALTO
+		 // MANEJO DE ARCHIVOS -> CLASE PRUEBA/MAIN(MISMO NIVEL) -> INTERFAZ DE USUARIO
 		Biblioteca biblioteca = dadoQueTengoUnaBibliotecaConNombre("Biblioteca Popular Jose Ingenieros");
 		Libro libro = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Lives", "Bauman", 1600,2003);
 		Libro libro1 = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Livess", "Bauman", 1603,2003);
@@ -26,15 +27,41 @@ public class BibliotecaTest {
 		cuandoLeAgregoUnLibro(biblioteca, libro1);
 		cuandoLeAgregoUnLibro(biblioteca, libro2);
 		cuandoLeAgregoUnLibro(biblioteca, libro3); //MANEJO LA EXCEPCION DE NULLPOINTEREXCEPTION
+		try { 
 		entoncesTengoLaBibliotecaConUnLibro(biblioteca, libro);
+		/*
 		for(Libro s: biblioteca.getAlmacenamientoDeLibros()) {
-			System.out.println(s.getCaracteres());}
+			System.out.println(s.getCaracteres());}*/
 		}catch(NullPointerException e) {
-			System.err.println("NullPointerException found");
+			System.err.println("NullPointerException ENCONTRADA");
 			e.printStackTrace();
 		}
 		
 		}
+	@Test 
+	public void queQuieroRetirarUnLibroQueNoEstaEnLaBiblioteca() {
+		Biblioteca biblioteca = dadoQueTengoUnaBibliotecaConNombre("Biblioteca Popular Jose Ingenieros");
+		Libro libro = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Lives", "Bauman", 1600,2003);
+		Libro libroQueNoEsta = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("El inconsciente", "Freud", 2400,1915);
+		cuandoLeAgregoUnLibro(biblioteca, libro);
+		entoncesRetiroElLibroQueNoEstaGuardadoEnLaBiblioteca(biblioteca, libroQueNoEsta);
+		
+	}
+	
+	@Test
+	public void queQuieroConsultarUnLibroQueNoEstaEnLaBibliotecaYLanzaLibroNoEncontradoException() {
+		Biblioteca biblioteca = dadoQueTengoUnaBibliotecaConNombre("Biblioteca Popular Jose Ingenieros");
+		Libro libro = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("Wasted Lives", "Bauman", 1600,2003);
+		Libro libroQueNoEsta = dadoQueTengoUnLibroConNombreAutorCaracteresYFechaDePublicacion("El inconsciente", "Freud", 2400,1915);
+		cuandoLeAgregoUnLibro(biblioteca, libro);
+		try {
+			entoncesQuieroConsultarElLibro(biblioteca, libroQueNoEsta);
+		}catch(LibroNoEncontradoException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	@Test
 	public void queCreoUnaBibliotecaConCincoLibrosYLosOrdenoPorApellidoDelAutor() {
@@ -94,8 +121,16 @@ public class BibliotecaTest {
 		Assert.assertEquals(primeroEsperado,primeroObtenido);
 		Assert.assertEquals(ultimoEsperado,ultimoObtenido);
 	}
-
 	
+	private void entoncesQuieroConsultarElLibro(Biblioteca biblioteca, Libro libroQueNoEsta) throws LibroNoEncontradoException {
+		Assert.assertFalse(biblioteca.consultarLibro(libroQueNoEsta));;
+		
+	}
+
+	private void entoncesRetiroElLibroQueNoEstaGuardadoEnLaBiblioteca(Biblioteca biblioteca, Libro libro) {
+		Assert.assertFalse(biblioteca.getAlmacenamientoDeLibros().remove(libro));
+		
+	}
 
 	private Biblioteca dadoQueTengoUnaBibliotecaConNombreYComparadorPorCantidadDeCaracteres(String nombreBiblioteca,
 			PorCantidadDeCaracteresComparator comparador) {

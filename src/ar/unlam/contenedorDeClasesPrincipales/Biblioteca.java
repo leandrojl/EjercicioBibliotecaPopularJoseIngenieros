@@ -6,6 +6,7 @@ import java.util.TreeSet;
 import ar.unlam.Comparadores.PorApellidoDelAutorComparator;
 import ar.unlam.Comparadores.PorCantidadDeCaracteresComparator;
 import ar.unlam.Comparadores.PorFechaDePublicacionComparator;
+import ar.unlam.manejoDeExcepciones.LibroNoEncontradoException;
 
 public class Biblioteca{
 
@@ -54,6 +55,16 @@ public class Biblioteca{
 
 	public void setAlmacenamientoDeLibros(TreeSet<Libro> almacenamientoDeLibros) {
 		this.almacenamientoDeLibros = almacenamientoDeLibros;
+	}
+
+	public Boolean consultarLibro(Libro libroQueNoEsta) throws LibroNoEncontradoException {
+		
+		if(this.getAlmacenamientoDeLibros().contains(libroQueNoEsta)) {
+			return true;
+		}
+		
+		throw new LibroNoEncontradoException();
+		
 	}
 
 
