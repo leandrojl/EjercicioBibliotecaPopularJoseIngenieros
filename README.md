@@ -41,3 +41,9 @@ queCreoUnaBibliotecaConCincoLibrosYLosOrdenoPorFechaDePublicacionDelAutor();
 
 queCreoUnaBibliotecaConCincoLibrosYLosOrdenoPorCantidadDeCaracteres();
 
+## License
+
+MIT License
+
+Copyright (c) [2023] [leandrojl]
+
